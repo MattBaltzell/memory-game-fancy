@@ -6,6 +6,7 @@ let matches = 0;
 let card1;
 let card2;
 let score = 0;
+const best = localStorage.memoryMatchGameBestScore;
 let checking = false;
 
 const COLORS = [
@@ -64,39 +65,44 @@ function createDivsForColors(colorArray) {
     gameContainer.append(newDiv);
   }
 
-  // add scoreboard
+  // add scoreboard div to game board
   const scoreDiv = document.createElement('div')
   scoreDiv.classList.add('score')
-  scoreDiv.innerHTML = `Score: ${score}   <br> Best: ${localStorage.memoryMatchGameBestScore}`
+  displayScore(scoreDiv)
   gameContainer.append(scoreDiv)
 }
 
 
 // TODO: Implement this function!
 function handleCardClick(e) {
-  scoreboard = document.querySelector('.score')
 
+  scoreboard = document.querySelector('.score')
+  
+  // Make sure "checking" is false, and disable clicking a flipped card.
   if(checking){return};
   if(e.target === card1 || e.target === card2){return};
   if(e.target.classList.contains('matched')){return};
+
   checking = true;
   
+  // set card1 and card2 values
   if(!card1 || !card2){
     card2 = card1 ? card1 : null;
     card1 = e.target;
     card1.style.backgroundColor = card1.classList.value;  
   }
-  
+  // do not continue unless card1 and card2 have values
   if(!card2){return checking = false}
   
+  // check if cards match
   if(card1.classList.value === card2.classList.value){
     matches++;
     card1.classList.add('matched')
     card2.classList.add('matched')
     card1 = card2 = null; 
     checking = false;
-    
   } else {
+    // iterate score and reset selected cards
     score++;
     setTimeout(function() {
       card1.style.backgroundColor = '';
@@ -105,10 +111,10 @@ function handleCardClick(e) {
       checking = false;
     },1000)
   }
-  displayScore();
 
-  
+  displayScore(scoreboard);
 
+  // win logic
   if(matches === COLORS.length/2){
     h1.textContent = 'YOU WIN!'
     storeHiScore();
@@ -120,7 +126,6 @@ function handleCardClick(e) {
     })
     scoreboard.append(newGameBtn)
   }
-
 }
 
 function resetGame(){
@@ -129,19 +134,14 @@ function resetGame(){
   h1.textContent = 'Memory Game!'
   game.innerHTML = ''
   createDivsForColors(shuffledColors);
-  // document.querySelector('button').remove()
+  displayScore(scoreboard)
 }
 
 function storeHiScore(){
-  if(!localStorage.memoryMatchGameBestScore || localStorage.memoryMatchGameBestScore > score){
-    localStorage.setItem('memoryMatchGameBestScore', score)
-  } 
+  if(!best || best > score){ localStorage.setItem('memoryMatchGameBestScore', score) } 
 }
 
-function displayScore(){
-  scoreboard.innerHTML = `Score: ${score}   <br> Best: ${localStorage.memoryMatchGameBestScore}`
-}
-
+function displayScore(div){ div.innerHTML = best ? `Score: ${score} <br> Best: ${best}` : `Score: ${score}` }
 
 // when the DOM loads
 createDivsForColors(shuffledColors);
