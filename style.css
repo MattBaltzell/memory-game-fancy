@@ -10,20 +10,20 @@ main{
 
 #game div {
   border: 1px solid black;
-  height: 200px;
+  min-height: 12vw;
   margin: 10px;
   display: inline-block;
-  min-width: 280px;
+  min-width: 15vw;
 }
 
 .game{
-  /* width: 100%; */
+  width: 100%;
   display: grid;
   grid-template-areas:  'g1 g2 g3 g4'
   'g5 sc sc g6'
   'g7 g8 g9 g10';
   
-  max-width: 70vw;
+  max-width: 80vw;
 }
 
 #game div.score {
