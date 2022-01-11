@@ -6,7 +6,7 @@ let matches = 0;
 let card1;
 let card2;
 let score = 0;
-const best = localStorage.memoryMatchGameBestScore;
+let best = parseInt(localStorage.memoryMatchGameBestScore);
 let checking = false;
 
 const COLORS = [
@@ -117,6 +117,7 @@ function handleCardClick(e) {
   if(matches === COLORS.length/2){
     h1.textContent = 'YOU WIN!'
     storeHiScore();
+    displayScore(scoreboard);
     const newGameBtn = document.createElement('button')
     newGameBtn.textContent = 'Play Again?'
     newGameBtn.addEventListener('click', function(e){
@@ -133,14 +134,17 @@ function resetGame(){
   h1.textContent = 'Memory Game!'
   game.innerHTML = ''
   createDivsForColors(shuffledColors);
-  displayScore(scoreboard)
+  displayScore(scoreboard);
 }
 
 function storeHiScore(){
   if(!best || best > score){ localStorage.setItem('memoryMatchGameBestScore', score) } 
 }
 
-function displayScore(div){ div.innerHTML = best ? `Score: ${score} <br> Best: ${best}` : `Score: ${score}` }
+function displayScore(div){ 
+  best = parseInt(localStorage.memoryMatchGameBestScore);
+  div.innerHTML = best ? `Score: ${score} <br> Best: ${best}` : `Score: ${score}` 
+}
 
 // when the DOM loads
 createDivsForColors(shuffledColors);
