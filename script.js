@@ -72,7 +72,6 @@ function createDivsForColors(colorArray) {
   gameContainer.append(scoreDiv)
 }
 
-
 // TODO: Implement this function!
 function handleCardClick(e) {
 
