@@ -5,21 +5,34 @@ let scoreboard;
 let matches = 0;
 let card1;
 let card2;
+let difficulty;
 let score = 0;
 const best = localStorage.memoryMatchGameBestScore;
 let checking = false;
 
-const COLORS = [
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple",
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple"
+const BANDPICS = [
+  "ab-myles1",
+  "ab-myles2",
+  "ab-myles3",
+  "ab-mark1",
+  "ab-mark2",
+  "ab-mark3",
+  "ab-brian1",
+  "ab-brian2",
+  "ab-brian3",
+  "ab-flip1",
+  "ab-flip2",
+  "ab-flip3",
+  "ab-album1",
+  "ab-album2",
+  "ab-album3",
+  "ab-album4",
+  "ab-album5",
+  "ab-album6",
+  "ab-band1",
+  "ab-band2",
+  "ab-band3",
+  "ab-band4",
 ];
 
 // here is a helper function to shuffle an array
@@ -45,19 +58,48 @@ function shuffle(array) {
   return array;
 }
 
-let shuffledColors = shuffle(COLORS);
+let shuffledCards = shuffle(BANDPICS);
 
-// this function loops over the array of colors
+let tempDeck;
+let gameDeck;
+difficulty = 'hard';
+setDeckSize(difficulty)
+
+function setDeckSize(dif){
+if (dif === 'easy'){
+  tempDeck = shuffledCards.slice(-5)
+}
+if (dif === 'norm'){
+  tempDeck = shuffledCards.slice(-10)
+}
+if (dif === 'hard'){
+  tempDeck = shuffledCards.slice(-20)
+}
+gameDeck = [...tempDeck,...tempDeck]
+shuffle(gameDeck);
+}
+
+
+
+// this function loops over the array of band pics
 // it creates a new div and gives it a class with the value of the color
 // it also adds an event listener for a click for each card
-function createDivsForColors(colorArray) {
-  for (let color of colorArray) {
-    // create a new div
+function createCards(cardsArr) {
+  for (let card of cardsArr) {
+    // create a new card
     const newDiv = document.createElement("div");
+    const newInner = document.createElement("div");
+    const newFront = document.createElement("div");
+    const newBack = document.createElement("div");
+    
+    newDiv.classList.add('card');
+    newInner.classList.add('card-inner')
+    newFront.classList.add('card-side', 'card-side__front')
+    newBack.classList.add('card-side', 'card-side__back')
 
-    // give it a class attribute for the value we are looping over
-    newDiv.classList.add(color);
-
+    newDiv.append(newInner)
+    newInner.append(newFront)
+    newInner.append(newBack)
     // call a function handleCardClick when a div is clicked on
     newDiv.addEventListener("click", handleCardClick);
 
@@ -115,7 +157,7 @@ function handleCardClick(e) {
   displayScore(scoreboard);
 
   // win logic
-  if(matches === COLORS.length/2){
+  if(matches === BANDPICS.length/2){
     h1.textContent = 'YOU WIN!'
     storeHiScore();
     const newGameBtn = document.createElement('button')
@@ -133,7 +175,7 @@ function resetGame(){
   matches = 0;
   h1.textContent = 'Memory Game!'
   game.innerHTML = ''
-  createDivsForColors(shuffledColors);
+  createCards(gameDeck);
   displayScore(scoreboard)
 }
 
@@ -144,4 +186,4 @@ function storeHiScore(){
 function displayScore(div){ div.innerHTML = best ? `Score: ${score} <br> Best: ${best}` : `Score: ${score}` }
 
 // when the DOM loads
-createDivsForColors(shuffledColors);
+createCards(gameDeck);
