@@ -6,11 +6,25 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <h1>Memory Game!</h1>
+    <div class="modal hidden">
+      <h2>You Win!</h2>
+      <p class="score">Score: 7<br>Best score: 4</p>
+      <button class="btn btn__again">Play again?</button>
+    </div>
+    <header class="playing">
+      <h1>Match<br>The<br>Cards</h1>
+      <p>Best score: 14</p>
+      <button class="btn btn__start hidden">Start!</button>
+      <div class="difficulty ">
+        <button class="btn difficulty__easy">Easy</button>
+        <button class="btn difficulty__norm">Normal</button>
+        <button class="btn difficulty__hard">Hard</button>
+      </div>
     </header>
     <main>
-      <div id="game" class="game"></div>
+      <div id="game" class="game hard">
+        
+      </div>
     </main>
     <script src="script.js"></script>
   </body>
