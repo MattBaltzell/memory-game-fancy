@@ -46,13 +46,7 @@ button{
   'g5 sc sc g6'
   'g7 g8 g9 g10';
   max-width: 90vw;
-
 }
-/* @media (min-width: 1400px) {
-  .game{
-    max-width: 70vw;
-  }
-} */
 
 #game div.score {
   grid-area: sc;
