@@ -2,18 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Simple Memory Game!</title>
+    <title>Alter Bridge Card Matching Game</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Modal -->
     <div class="modal hidden">
       <h2>You Win!</h2>
-      <p class="score">Score: 7<br>Best score: 4</p>
+      <p class="modal-score"></p>
       <button class="btn btn__again">Play again?</button>
     </div>
+    <!-- Start Menu -->
     <header>
-      <h1>Match<br>The<br>Cards</h1>
-      <p>Best score: 14</p>
+      <h1>Find<br>The<br>Real</h1>
+      <p>An Alter Bridge Memory Game</p>
       <button class="btn btn__start">Start!</button>
       <div class="difficulty hidden">
         <button class="btn btn__difficulty btn__difficulty--easy">Easy</button>
@@ -21,7 +23,8 @@
         <button class="btn btn__difficulty btn__difficulty--hard">Hard</button>
       </div>
     </header>
-    <main class="hidden">
+    <!-- Cards -->
+    <main class="hidden fadedOut">
       <div id="game" class="game easy">
       </div>
     </main>

@@ -2,6 +2,8 @@
 
 const header = document.querySelector('header')
 const main = document.querySelector('main')
+const modal = document.querySelector('.modal')
+const modalScore = document.querySelector('.modal-score')
 const gameContainer = document.getElementById("game");
 const btnStart = document.querySelector('.btn__start')
 const difficultyMenu = document.querySelector('.difficulty')
@@ -9,13 +11,19 @@ const btnEasy = document.querySelector('.difficulty__easy')
 const btnNorm = document.querySelector('.difficulty__norm')
 const btnHard = document.querySelector('.difficulty__hard')
 const h1 = document.querySelector('h1');
+const headerMsg = document.querySelector('header p');
 const game = document.querySelector('#game')
 const best = localStorage.memoryMatchGameBestScore;
+const bestEasy = localStorage.memoryMatchGameBestEasy;
+const bestNorm = localStorage.memoryMatchGameBestNorm;
+const bestHard = localStorage.memoryMatchGameBestHard;
 
 let scoreboard;
 let matches = 0;
 let card1;
 let card2;
+let cardBack1;
+let cardBack2;
 let difficulty;
 let score = 0;
 let checking = false;
@@ -23,15 +31,15 @@ let tempDeck;
 let gameDeck;
 
 const BANDPICS = [
-  "cardpic1",
-  "cardpic2",
-  "cardpic3",
-  "cardpic4",
-  "cardpic5",
-  "cardpic6",
-  "cardpic7",
-  "cardpic8",
-  "cardpic9",
+  "cardpic01",
+  "cardpic02",
+  "cardpic03",
+  "cardpic04",
+  "cardpic05",
+  "cardpic06",
+  "cardpic07",
+  "cardpic08",
+  "cardpic09",
   "cardpic10",
   "cardpic11",
   "cardpic12",
@@ -53,6 +61,14 @@ const BANDPICS = [
   "cardpic28",
   "cardpic29",
   "cardpic30",
+  "cardpic31",
+  "cardpic32",
+  "cardpic33",
+  "cardpic34",
+  "cardpic35",
+  "cardpic36",
+  "cardpic37",
+  "cardpic38"
 ];
 
 
@@ -60,6 +76,8 @@ const BANDPICS = [
 btnStart.addEventListener('click',showDifficultyMenu)
 
 function showDifficultyMenu() {
+  headerMsg.textContent = "Select a difficulty!"
+
   btnStart.classList.add('hidden')
   difficultyMenu.classList.remove('hidden')
 }
@@ -76,15 +94,21 @@ function startGameHandler(e){
   if(e.target.classList.contains('btn__difficulty--hard')) {difficulty = 'hard'}
   setDifficulty(difficulty)
   setDeckSize(difficulty)
-  createCards(gameDeck)
+  createCards(gameDeck) 
   revealGame()
 }
 
 // Function to hide start menu and show the game
 function revealGame() {
   header.classList.add('playing')
-  setTimeout(function(){header.classList.add('hidden')},1000)
-  main.classList.remove('hidden')
+  setTimeout(function(){
+    main.classList.remove('hidden')
+    header.classList.add('hidden')
+    setTimeout(function(){
+      main.classList.remove('fadedOut')
+    },100)
+  },800)
+  
 }
 
 function setDifficulty(dif) {
@@ -117,8 +141,6 @@ function shuffle(array) {
 
 let shuffledCards = shuffle(BANDPICS);
 
-difficulty = 'easy';
-setDeckSize(difficulty)
 
 function setDeckSize(dif){
   if (dif === 'easy'){tempDeck = shuffledCards.slice(-5)}
@@ -127,8 +149,6 @@ function setDeckSize(dif){
   gameDeck = [...tempDeck,...tempDeck]
   shuffle(gameDeck);
 }
-
-
 
 // this function loops over the array of band pics
 // it creates a new div and gives it a class with the value of the color
@@ -146,6 +166,7 @@ function createCards(cardsArr) {
     newInner.classList.add('card-inner')
     newFront.classList.add('card-side', 'card-side__front')
     newBack.classList.add('card-side', 'card-side__back')
+    newBack.style.backgroundImage = `url('img/${card}.jpg')`
 
     newDiv.append(newInner)
     newInner.append(newFront)
@@ -157,37 +178,43 @@ function createCards(cardsArr) {
     gameContainer.append(newDiv);
   }
 
+  // add background-image to cards
+
+
   // add scoreboard div to game board
   const scoreDiv = document.createElement('div')
   scoreDiv.classList.add('score')
-  displayScore(scoreDiv)
+  const scoreP = document.createElement('p')
+  displayScore(scoreP)
+  scoreDiv.append(scoreP)
   gameContainer.append(scoreDiv)
 }
 
-
 // TODO: Implement this function!
 function handleCardClick(e) {
-
-  scoreboard = document.querySelector('.score')
-  
+  e.preventDefault()
+  scoreboard = document.querySelector('.score p')
   // Make sure "checking" is false, and disable clicking a flipped card.
   if(checking){return};
-  if(e.target === card1 || e.target === card2){return};
-  if(e.target.classList.contains('matched')){return};
+  if(e.target.parentElement.parentElement === card1 || e.target === card2){return};
+  if(e.target.parentElement.parentElement.classList.contains('matched')){return};
 
   checking = true;
   
   // set card1 and card2 values
   if(!card1 || !card2){
     card2 = card1 ? card1 : null;
-    card1 = e.target;
-    card1.style.backgroundColor = card1.classList.value;  
+    card1 = e.target.parentElement.parentElement;
+    cardBack2 = cardBack1 ? cardBack1 : null;
+    cardBack1 = e.target.parentElement.lastChild;
+    card1.classList.add('flip');  
   }
   // do not continue unless card1 and card2 have values
+  console.log(card1)
   if(!card2){return checking = false}
   
   // check if cards match
-  if(card1.classList.value === card2.classList.value){
+  if(cardBack1.style.backgroundImage === cardBack2.style.backgroundImage){
     matches++;
     card1.classList.add('matched')
     card2.classList.add('matched')
@@ -197,26 +224,26 @@ function handleCardClick(e) {
     // iterate score and reset selected cards
     score++;
     setTimeout(function() {
-      card1.style.backgroundColor = '';
-      card2.style.backgroundColor = '';
+      card1.classList.remove('flip');
+      card2.classList.remove('flip');
       card1 = card2 = null; 
       checking = false;
     },1000)
+
   }
 
   displayScore(scoreboard);
 
   // win logic
-  if(matches === BANDPICS.length/2){
-    h1.textContent = 'YOU WIN!'
-    storeHiScore();
-    const newGameBtn = document.createElement('button')
-    newGameBtn.textContent = 'Play Again?'
-    newGameBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      resetGame();
-    })
-    scoreboard.append(newGameBtn)
+  if(matches === gameDeck.length/2){
+    
+    setTimeout(function(){
+      scoreboard.innerHTML = ''
+      displayScore(modalScore)
+      modal.classList.remove('hidden')
+      storeHiScore();
+    },100)
+    
   }
 }
 
@@ -229,11 +256,10 @@ function resetGame(){
   displayScore(scoreboard)
 }
 
+
+// rework this to allow for best scores at all 3 difficulties
 function storeHiScore(){
   if(!best || best > score){ localStorage.setItem('memoryMatchGameBestScore', score) } 
 }
 
-function displayScore(div){ div.innerHTML = best ? `Score: ${score} <br> Best: ${best}` : `Score: ${score}` }
-
-// when the DOM loads
-// createCards(gameDeck);
+function displayScore(el){ el.innerHTML = best ? `Score: ${score} <br> Best: ${best}` : `Score: ${score}` }
