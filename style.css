@@ -254,11 +254,11 @@ p{
 
 
   h1,h2{
-    font-size: 7rem;
+    font-size: 5rem;
   }
 
   p{
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   header{
@@ -270,8 +270,8 @@ p{
   }
 
   .btn{
-    padding: 2rem 4rem;
-    font-size: 2rem;
+    padding: 1.6rem 3.2rem;
+    font-size: 1.4rem;
 
   }
 }
