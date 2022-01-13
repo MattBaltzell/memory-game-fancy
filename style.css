@@ -9,6 +9,8 @@
   box-sizing: border-box;
 }
 
+
+
 body{
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
@@ -31,11 +33,11 @@ header{
   background-color: #fff;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1rem;
   color: #333;
   transition: all 1s;
-  padding-bottom: 9vh;
+  padding-top: 9vh;
 }
 
 header.playing{
@@ -44,9 +46,10 @@ header.playing{
 
 main{
   padding: 5%;
-  padding-top: 7vh;
+  padding-bottom: 7vh;
   transition: opacity 0.7s linear;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
 }
 
 main.fadedOut{
@@ -71,7 +74,7 @@ main.fadedOut{
 }
 
 h1,h2{
-  font-size: 12rem;
+  font-size: 4rem;
   line-height: 1;
   text-transform: uppercase;
   font-family: brother-1816-printed, sans-serif;
@@ -80,12 +83,12 @@ h1,h2{
 }
 
 p{
-  font-size:3rem;
+  font-size:1.2rem;
 }
 
 .btn__start,
 .difficulty{
-  margin-top: 6rem;
+  margin-top: 1.4rem;
 }
 
 .btn{
@@ -93,10 +96,10 @@ p{
   border:none;
   background-color: #333;
   color: #fff;
-  font-size: 4rem;
+  font-size: 1.2rem;
   font-weight: 900;
   border-radius: 16px;
-  padding: 3rem 6rem;
+  padding: 1.2rem 2.4rem;
   box-shadow: 0 3px 6px rgba(0,0,0,0.3);
   transition: all .2s;
   text-transform: uppercase;
@@ -119,7 +122,7 @@ p{
 .difficulty{
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: .8rem;
 }
 
 .btn__difficulty{
@@ -131,7 +134,6 @@ p{
 .btn__difficulty:hover{
   background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(img/background.jpeg);
 }
-
 
 .card {
   display: inline-block;
@@ -160,7 +162,6 @@ p{
   position: absolute;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  /* border-radius: 8px; */
 }
 
 .card-side__front {
@@ -175,19 +176,16 @@ p{
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-
   transform: rotateY(180deg);
   border-radius: 12px;
-  
 }
 
 .game{
   display: grid;
-  gap: 1.6rem;
+  gap: .6rem;
   width: 100%;
   height: 70vh;
 }
-
 
 .game.easy{
   grid-template-areas:  
@@ -198,7 +196,6 @@ p{
   grid-template-columns: repeat(3,1fr);
   grid-template-rows: repeat(4,1fr);
 }
-
 
 .game.norm{
   grid-template-areas:  
@@ -253,12 +250,22 @@ p{
 /* MEDIA QUERIES - Small Tablets*/
 /* /////////////////////////////////////////////////////// */
 @media screen and (min-width: 600px){
-html{
-  font-size: 14px;
-}
-h1,h2{font-size: 10rem}
-p{font-size: 2.2rem}
-.btn{padding: 2rem 4rem}
+  
+  html{
+    font-size: 14px;
+  }
+
+  h1,h2{
+    font-size: 10rem;
+  }
+
+  p{
+    font-size: 2.2rem;
+  }
+
+  .btn{
+    padding: 2rem 4rem;
+  }
 }
 
 /* /////////////////////////////////////////////////////// */
@@ -268,22 +275,38 @@ p{font-size: 2.2rem}
   html{
     font-size: 12px;
   }
+}
 
-  /* /////////////////////////////////////////////////////// */
+
+/* /////////////////////////////////////////////////////// */
 /* MEDIA QUERIES - Large Tablets*/
 /* /////////////////////////////////////////////////////// */
 @media screen and (min-width: 1000px){
+ 
   html{
     font-size: 10px;
   }
-  h1,h2{font-size: 7rem}
-  p{font-size: 2.3rem}
+ 
+  h1,h2{
+    font-size: 7rem;
+  }
+  
+  p{
+    font-size: 2.3rem;
+  }
+ 
   .btn{
     padding: 1.6rem 3.2rem;
     font-size: 2rem;
   }
-  .difficulty{flex-direction: row}
-  .btn__start,.difficulty{margin-top: 3rem}
+  
+  .difficulty{
+    flex-direction: row;
+  }
+  
+  .btn__start,.difficulty{
+    margin-top: 3rem;
+  }
 
   main{
     padding-top: 8vh;
@@ -328,7 +351,6 @@ p{font-size: 2.2rem}
   }
 
 }
-
 
 /* /////////////////////////////////////////////////////// */
 /* MEDIA QUERIES - Lg Desktop*/
