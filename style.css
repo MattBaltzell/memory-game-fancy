@@ -230,8 +230,8 @@ p{
   'g36 g37 g38 g39 g40'
   'sc sc sc sc sc';
   gap: 1rem;
-  grid-template-columns: repeat(8,1fr);
-
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: repeat(9,1fr);  
 }
 
 /* lg screen */
