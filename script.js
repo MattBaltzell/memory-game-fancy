@@ -28,7 +28,7 @@ let difficulty;
 let score = 0;
 let checking = false;
 let tempDeck;
-let gameDeck;
+let gameDeck = [];
 
 const BANDPICS = [
   "cardpic01",
@@ -236,7 +236,6 @@ function handleCardClick(e) {
 
   // win logic
   if(matches === gameDeck.length/2){
-    
     setTimeout(function(){
       scoreboard.innerHTML = ''
       displayScore(modalScore)
@@ -247,13 +246,24 @@ function handleCardClick(e) {
   }
 }
 
+const modalBTN = document.querySelector('.modal button')
+modalBTN.addEventListener('click',function(){
+  resetGame()
+})
+
+
 function resetGame(){
   score = 0;
   matches = 0;
-  h1.textContent = 'Memory Game!'
-  game.innerHTML = ''
-  createCards(gameDeck);
-  displayScore(scoreboard)
+  game.innerHTML = '';
+  gameDeck = [];
+  modal.classList.add('hidden')
+  main.classList.add('hidden','fadedOut')
+  header.classList.remove('hidden')
+  header.classList.remove('playing')
+  btnStart.classList.remove('hidden')
+  difficultyMenu.classList.add('hidden')
+
 }
 
 
