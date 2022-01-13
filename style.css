@@ -33,11 +33,11 @@ header{
   background-color: #fff;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1rem;
   color: #333;
   transition: all 1s;
-  padding-bottom: 10vh;
+  padding-top: 10vh;
 }
 
 header.playing{
