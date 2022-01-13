@@ -35,7 +35,7 @@ header{
   gap: 1rem;
   color: #333;
   transition: all 1s;
-  padding-top: 12vh;
+  padding-top: 9vh;
 }
 
 header.playing{
@@ -44,7 +44,7 @@ header.playing{
 
 main{
   padding: 5%;
-  padding-top: 8vh;
+  padding-top: 7vh;
   transition: opacity 0.7s linear;
   justify-content: flex-start;
 }
