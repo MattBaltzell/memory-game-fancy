@@ -13,10 +13,17 @@ const btnHard = document.querySelector('.difficulty__hard')
 const h1 = document.querySelector('h1');
 const headerMsg = document.querySelector('header p');
 const game = document.querySelector('#game')
-const best = localStorage.memoryMatchGameBestScore;
-const bestEasy = localStorage.memoryMatchGameBestEasy;
-const bestNorm = localStorage.memoryMatchGameBestNorm;
-const bestHard = localStorage.memoryMatchGameBestHard;
+const best = {
+  easy: localStorage.getItem('memoryMatchGameBestEasy'),
+  norm: localStorage.getItem('memoryMatchGameBestNorm'),
+  hard: localStorage.getItem('memoryMatchGameBestHard'),
+  getBest(){
+    this.easy = localStorage.getItem('memoryMatchGameBestEasy')
+    this.norm = localStorage.getItem('memoryMatchGameBestNorm')
+    this.hard = localStorage.getItem('memoryMatchGameBestHard')
+
+  }
+};
 
 let scoreboard;
 let matches = 0;
@@ -77,11 +84,9 @@ btnStart.addEventListener('click',showDifficultyMenu)
 
 function showDifficultyMenu() {
   headerMsg.textContent = "Select a difficulty!"
-
   btnStart.classList.add('hidden')
   difficultyMenu.classList.remove('hidden')
 }
-
 
 difficultyMenu.addEventListener('click',startGameHandler.bind(this))
 
@@ -236,11 +241,11 @@ function handleCardClick(e) {
 
   // win logic
   if(matches === gameDeck.length/2){
+    storeHiScore();
+    displayScore(modalScore)
     setTimeout(function(){
       scoreboard.innerHTML = ''
-      displayScore(modalScore)
       modal.classList.remove('hidden')
-      storeHiScore();
     },100)
     
   }
@@ -257,19 +262,41 @@ function resetGame(){
   matches = 0;
   game.innerHTML = '';
   gameDeck = [];
+  headerMsg.textContent = "An Alter Bridge Memory Game"
   modal.classList.add('hidden')
   main.classList.add('hidden','fadedOut')
   header.classList.remove('hidden')
   header.classList.remove('playing')
   btnStart.classList.remove('hidden')
   difficultyMenu.classList.add('hidden')
-
 }
 
 
 // rework this to allow for best scores at all 3 difficulties
 function storeHiScore(){
-  if(!best || best > score){ localStorage.setItem('memoryMatchGameBestScore', score) } 
+  
+  if(!best.easy || best.easy > score){ 
+    difficulty === 'easy' && localStorage.setItem(`memoryMatchGameBestEasy`, score) 
+  } 
+  if(!best.norm || best.norm > score){ 
+    difficulty === 'norm' && localStorage.setItem(`memoryMatchGameBestNorm`, score) 
+  } 
+  if(!best.hard || best.hard > score){ 
+    difficulty === 'hard' && localStorage.setItem(`memoryMatchGameBestHard`, score) 
+  } 
 }
 
-function displayScore(el){ el.innerHTML = best ? `Score: ${score} <br> Best: ${best}` : `Score: ${score}` }
+function displayScore(el){ 
+
+  best.getBest();
+
+  if(difficulty === 'easy'){
+    el .innerHTML = best.easy ? `Score: ${score} <br> Best: ${best.easy}` : `Score: ${score}` 
+  }
+  if(difficulty === 'norm'){
+    el .innerHTML = best.norm ? `Score: ${score} <br> Best: ${best.norm}` : `Score: ${score}` 
+  }
+  if(difficulty === 'hard'){
+    el .innerHTML = best.hard ? `Score: ${score} <br> Best: ${best.hard}` : `Score: ${score}` 
+  }
+}
