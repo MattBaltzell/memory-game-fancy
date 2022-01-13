@@ -251,20 +251,28 @@ p{
 /* /////////////////////////////////////////////////////// */
 @media screen and (min-width: 600px){
   
-  html{
-    font-size: 14px;
-  }
+
 
   h1,h2{
-    font-size: 10rem;
+    font-size: 7rem;
   }
 
   p{
     font-size: 2.2rem;
   }
 
+  header{
+    gap:2rem;
+  }
+  
+  .btn__start,.difficulty{
+    margin-top: 3rem;
+  }
+
   .btn{
     padding: 2rem 4rem;
+    font-size: 2rem;
+
   }
 }
 
