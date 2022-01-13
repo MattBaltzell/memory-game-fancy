@@ -24,8 +24,6 @@ body{
 header,
 main{
   display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
 }
 
@@ -37,7 +35,7 @@ header{
   gap: 1rem;
   color: #333;
   transition: all 1s;
-  padding-top: 18vh;
+  padding-top: 15vh;
 }
 
 header.playing{
@@ -45,9 +43,10 @@ header.playing{
 }
 
 main{
-  padding-top: 50px;
   padding: 5%;
+  padding-top: 10vh;
   transition: opacity 0.7s linear;
+  justify-content: flex-start;
 }
 
 main.fadedOut{
@@ -190,7 +189,7 @@ p{
   display: grid;
   gap: 1.6rem;
   width: 100%;
-  height: 60vh;
+  height: 70vh;
 }
 
 
