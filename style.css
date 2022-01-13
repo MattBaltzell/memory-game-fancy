@@ -46,7 +46,7 @@ header.playing{
 
 main{
   padding: 5%;
-  padding-bottom: 7vh;
+  padding-bottom: 15vh;
   transition: opacity 0.7s linear;
   justify-content: center;
   align-items: center;
