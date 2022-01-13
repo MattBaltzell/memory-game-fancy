@@ -37,7 +37,7 @@ header{
   gap: 1rem;
   color: #333;
   transition: all 1s;
-  padding-top: 10vh;
+  padding-top: 14vh;
 }
 
 header.playing{
@@ -72,7 +72,7 @@ main.fadedOut{
 }
 
 h1,h2{
-  font-size: 16rem;
+  font-size: 12rem;
   line-height: 1;
   text-transform: uppercase;
   font-family: brother-1816-printed, sans-serif;
