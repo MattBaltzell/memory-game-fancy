@@ -37,7 +37,7 @@ header{
   gap: 1rem;
   color: #333;
   transition: all 1s;
-  padding-top: 14vh;
+  padding-top: 18vh;
 }
 
 header.playing{
