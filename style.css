@@ -239,7 +239,6 @@ p{
   border-width: 3px;
 }
 
-
 .game div.score {
   grid-area: sc;
   border: none;
@@ -251,7 +250,6 @@ p{
   box-shadow: none;
 }
 
-
 .hidden{
   display:none;
 }
@@ -259,6 +257,22 @@ p{
 /* /////////////////////////////////////////////////////// */
 /* MEDIA QUERIES */
 /* /////////////////////////////////////////////////////// */
+@media screen and (min-width: 600px){
+  /* sm tablets */
+header,
+main{}
+h1,h2{
+ font-size: 8rem;
+}
+p{
+  font-size: 2.2rem;
+}
+.btn{
+  padding: 2rem 4rem; 
+}
+}
+
+
 
 @media screen and (min-width: 1200px){
   /* lg screen */
