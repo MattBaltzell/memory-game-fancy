@@ -382,7 +382,7 @@ p{
   html{
     font-size: 14px;
   }
-  main{
+  .game{
     height: 80vh;
     padding-top:3rem;
   }
