@@ -77,16 +77,17 @@ const BANDPICS = [
   'cardpic38',
 ];
 
-// Show difficulty menu
 btnStart.addEventListener('click', showDifficultyMenu);
+
+difficultyMenu.addEventListener('click', startGameHandler.bind(this));
+
+gameContainer.addEventListener('click', handleCardClick);
 
 function showDifficultyMenu() {
   headerMsg.textContent = 'Select a difficulty!';
   btnStart.classList.add('hidden');
   difficultyMenu.classList.remove('hidden');
 }
-
-difficultyMenu.addEventListener('click', startGameHandler.bind(this));
 
 // Function to select difficulty, start game
 function startGameHandler(e) {
@@ -169,26 +170,23 @@ function setDeckSize(dif) {
 function createCards(cardsArr) {
   for (let card of cardsArr) {
     // create a new card
-    const newDiv = document.createElement('div');
-    const newInner = document.createElement('div');
-    const newFront = document.createElement('div');
-    const newBack = document.createElement('div');
+    const cardDiv = document.createElement('div');
+    const cardInner = document.createElement('div');
+    const cardFront = document.createElement('div');
+    const cardBack = document.createElement('div');
 
-    newDiv.classList.add('card');
-    newDiv.classList.add(card);
-    newInner.classList.add('card-inner');
-    newFront.classList.add('card-side', 'card-side__front');
-    newBack.classList.add('card-side', 'card-side__back');
-    newBack.style.backgroundImage = `url('img/${card}.jpg')`;
+    cardDiv.classList.add('card');
+    cardInner.classList.add('card-inner');
+    cardFront.classList.add('card-side', 'card-side__front');
+    cardBack.classList.add('card-side', 'card-side__back');
+    cardBack.style.backgroundImage = `url('img/${card}.jpg')`;
 
-    newDiv.append(newInner);
-    newInner.append(newFront);
-    newInner.append(newBack);
-    // call a function handleCardClick when a div is clicked on
-    newDiv.addEventListener('click', handleCardClick);
+    cardDiv.append(cardInner);
+    cardInner.append(cardFront);
+    cardInner.append(cardBack);
 
     // append the div to the element with an id of game
-    gameContainer.append(newDiv);
+    gameContainer.append(cardDiv);
   }
 
   // add background-image to cards
@@ -205,6 +203,9 @@ function createCards(cardsArr) {
 // TODO: Implement this function!
 function handleCardClick(e) {
   e.preventDefault();
+
+  if (!e.target.parentElement.parentElement.classList.contains('card')) return;
+
   scoreboard = document.querySelector('.score p');
   // Make sure "checking" is false, and disable clicking a flipped card.
   if (checking) {
