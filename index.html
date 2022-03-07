@@ -2,30 +2,45 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- HTML Meta Tags -->
     <title>Alter Bridge Card Matching Game</title>
-    <meta name="description" content="Fun memory game with one of the greatest rock bands of the 21st century Alter Bridge. Match all the card pairs to win!">
+    <meta
+      name="description"
+      content="Fun memory game with one of the greatest rock bands of the 21st century Alter Bridge. Match all the card pairs to win!"
+    />
 
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Alter Bridge Card Matching Game">
-    <meta property="og:description" content="A fun memory game. Match all the card pairs to win!">
-    <meta property="og:image" content="https://memory-game-mb.netlify.app/img/social-card-img.jpg/">
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Alter Bridge Card Matching Game" />
+    <meta
+      property="og:description"
+      content="A fun memory game. Match all the card pairs to win!"
+    />
+    <meta
+      property="og:image"
+      content="https://memory-game-mb.netlify.app/img/social-card-img.jpg/"
+    />
 
     <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="memory-game-mb.netlify.app">
-    <meta property="twitter:url" content="">
-    <meta name="twitter:title" content="Alter Bridge Card Matching Game">
-    <meta name="twitter:description" content="A fun memory game. Match all the card pairs to win!">
-    <meta name="twitter:image" content="https://memory-game-mb.netlify.app/img/social-card-img.jpg/">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="memory-game-mb.netlify.app" />
+    <meta property="twitter:url" content="" />
+    <meta name="twitter:title" content="Alter Bridge Card Matching Game" />
+    <meta
+      name="twitter:description"
+      content="A fun memory game. Match all the card pairs to win!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://memory-game-mb.netlify.app/img/social-card-img.jpg/"
+    />
 
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
-      
-    <link rel="stylesheet" href="https://use.typekit.net/ygn0hgc.css">
+
+    <link rel="stylesheet" href="https://use.typekit.net/ygn0hgc.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -37,19 +52,20 @@
     </div>
     <!-- Start Menu -->
     <header>
-      <h1>Find<br>The<br>Real</h1>
+      <h1>Find<br />The<br />Real</h1>
       <p>An Alter Bridge Memory Game</p>
       <button class="btn btn__start">Start</button>
       <div class="difficulty hidden">
-        <button class="btn btn__difficulty btn__difficulty--easy">Easy</button>
-        <button class="btn btn__difficulty btn__difficulty--norm">Normal</button>
-        <button class="btn btn__difficulty btn__difficulty--hard">Hard</button>
+        <button class="btn btn__difficulty" data-difficulty="easy">Easy</button>
+        <button class="btn btn__difficulty" data-difficulty="norm">
+          Normal
+        </button>
+        <button class="btn btn__difficulty" data-difficulty="hard">Hard</button>
       </div>
     </header>
     <!-- Cards -->
     <main class="hidden fadedOut">
-      <div id="game" class="game easy">
-      </div>
+      <div id="game" class="game easy"></div>
     </main>
     <script src="script.js"></script>
   </body>
