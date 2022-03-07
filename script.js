@@ -1,28 +1,27 @@
-'use strict'
+'use strict';
 
-const header = document.querySelector('header')
-const main = document.querySelector('main')
-const modal = document.querySelector('.modal')
-const modalScore = document.querySelector('.modal-score')
-const gameContainer = document.getElementById("game");
-const btnStart = document.querySelector('.btn__start')
-const difficultyMenu = document.querySelector('.difficulty')
-const btnEasy = document.querySelector('.difficulty__easy')
-const btnNorm = document.querySelector('.difficulty__norm')
-const btnHard = document.querySelector('.difficulty__hard')
+const header = document.querySelector('header');
+const main = document.querySelector('main');
+const modal = document.querySelector('.modal');
+const modalScore = document.querySelector('.modal-score');
+const gameContainer = document.getElementById('game');
+const btnStart = document.querySelector('.btn__start');
+const difficultyMenu = document.querySelector('.difficulty');
+const btnEasy = document.querySelector('.difficulty__easy');
+const btnNorm = document.querySelector('.difficulty__norm');
+const btnHard = document.querySelector('.difficulty__hard');
 const h1 = document.querySelector('h1');
 const headerMsg = document.querySelector('header p');
-const game = document.querySelector('#game')
+const game = document.querySelector('#game');
 const best = {
   easy: localStorage.getItem('memoryMatchGameBestEasy'),
   norm: localStorage.getItem('memoryMatchGameBestNorm'),
   hard: localStorage.getItem('memoryMatchGameBestHard'),
-  getBest(){
-    this.easy = localStorage.getItem('memoryMatchGameBestEasy')
-    this.norm = localStorage.getItem('memoryMatchGameBestNorm')
-    this.hard = localStorage.getItem('memoryMatchGameBestHard')
-
-  }
+  getBest() {
+    this.easy = localStorage.getItem('memoryMatchGameBestEasy');
+    this.norm = localStorage.getItem('memoryMatchGameBestNorm');
+    this.hard = localStorage.getItem('memoryMatchGameBestHard');
+  },
 };
 
 let scoreboard;
@@ -38,87 +37,91 @@ let tempDeck;
 let gameDeck = [];
 
 const BANDPICS = [
-  "cardpic01",
-  "cardpic02",
-  "cardpic03",
-  "cardpic04",
-  "cardpic05",
-  "cardpic06",
-  "cardpic07",
-  "cardpic08",
-  "cardpic09",
-  "cardpic10",
-  "cardpic11",
-  "cardpic12",
-  "cardpic13",
-  "cardpic14",
-  "cardpic15",
-  "cardpic16",
-  "cardpic17",
-  "cardpic18",
-  "cardpic19",
-  "cardpic20",
-  "cardpic21",
-  "cardpic22",
-  "cardpic23",
-  "cardpic24",
-  "cardpic25",
-  "cardpic26",
-  "cardpic27",
-  "cardpic28",
-  "cardpic29",
-  "cardpic30",
-  "cardpic31",
-  "cardpic32",
-  "cardpic33",
-  "cardpic34",
-  "cardpic35",
-  "cardpic36",
-  "cardpic37",
-  "cardpic38"
+  'cardpic01',
+  'cardpic02',
+  'cardpic03',
+  'cardpic04',
+  'cardpic05',
+  'cardpic06',
+  'cardpic07',
+  'cardpic08',
+  'cardpic09',
+  'cardpic10',
+  'cardpic11',
+  'cardpic12',
+  'cardpic13',
+  'cardpic14',
+  'cardpic15',
+  'cardpic16',
+  'cardpic17',
+  'cardpic18',
+  'cardpic19',
+  'cardpic20',
+  'cardpic21',
+  'cardpic22',
+  'cardpic23',
+  'cardpic24',
+  'cardpic25',
+  'cardpic26',
+  'cardpic27',
+  'cardpic28',
+  'cardpic29',
+  'cardpic30',
+  'cardpic31',
+  'cardpic32',
+  'cardpic33',
+  'cardpic34',
+  'cardpic35',
+  'cardpic36',
+  'cardpic37',
+  'cardpic38',
 ];
 
-
 // Show difficulty menu
-btnStart.addEventListener('click',showDifficultyMenu)
+btnStart.addEventListener('click', showDifficultyMenu);
 
 function showDifficultyMenu() {
-  headerMsg.textContent = "Select a difficulty!"
-  btnStart.classList.add('hidden')
-  difficultyMenu.classList.remove('hidden')
+  headerMsg.textContent = 'Select a difficulty!';
+  btnStart.classList.add('hidden');
+  difficultyMenu.classList.remove('hidden');
 }
 
-difficultyMenu.addEventListener('click',startGameHandler.bind(this))
+difficultyMenu.addEventListener('click', startGameHandler.bind(this));
 
 // Function to select difficulty, start game
-function startGameHandler(e){
+function startGameHandler(e) {
   e.preventDefault();
-  if(!e.target.classList.contains('btn__difficulty')) return;
-  if(e.target.classList.contains('btn__difficulty--easy')) {difficulty = 'easy'}
-  if(e.target.classList.contains('btn__difficulty--norm')) {difficulty = 'norm'}
-  if(e.target.classList.contains('btn__difficulty--hard')) {difficulty = 'hard'}
-  setDifficulty(difficulty)
-  setDeckSize(difficulty)
-  createCards(gameDeck) 
-  revealGame()
+  if (!e.target.classList.contains('btn__difficulty')) return;
+  if (e.target.classList.contains('btn__difficulty--easy')) {
+    difficulty = 'easy';
+  }
+  if (e.target.classList.contains('btn__difficulty--norm')) {
+    difficulty = 'norm';
+  }
+  if (e.target.classList.contains('btn__difficulty--hard')) {
+    difficulty = 'hard';
+  }
+  setDifficulty(difficulty);
+  setDeckSize(difficulty);
+  createCards(gameDeck);
+  revealGame();
 }
 
 // Function to hide start menu and show the game
 function revealGame() {
-  header.classList.add('playing')
-  setTimeout(function(){
-    main.classList.remove('hidden')
-    header.classList.add('hidden')
-    setTimeout(function(){
-      main.classList.remove('fadedOut')
-    },100)
-  },800)
-  
+  header.classList.add('playing');
+  setTimeout(function () {
+    main.classList.remove('hidden');
+    header.classList.add('hidden');
+    setTimeout(function () {
+      main.classList.remove('fadedOut');
+    }, 100);
+  }, 800);
 }
 
 function setDifficulty(dif) {
-  gameContainer.classList.remove('easy','norm','hard')
-  gameContainer.classList.add(dif)
+  gameContainer.classList.remove('easy', 'norm', 'hard');
+  gameContainer.classList.add(dif);
 }
 
 // here is a helper function to shuffle an array
@@ -144,14 +147,19 @@ function shuffle(array) {
   return array;
 }
 
-let shuffledCards = shuffle(BANDPICS);
+function setDeckSize(dif) {
+  let shuffledCards = shuffle(BANDPICS);
 
-
-function setDeckSize(dif){
-  if (dif === 'easy'){tempDeck = shuffledCards.slice(-5)}
-  if (dif === 'norm'){tempDeck = shuffledCards.slice(-10)}
-  if (dif === 'hard'){tempDeck = shuffledCards.slice(-20)}
-  gameDeck = [...tempDeck,...tempDeck]
+  if (dif === 'easy') {
+    tempDeck = shuffledCards.slice(-5);
+  }
+  if (dif === 'norm') {
+    tempDeck = shuffledCards.slice(-10);
+  }
+  if (dif === 'hard') {
+    tempDeck = shuffledCards.slice(-20);
+  }
+  gameDeck = [...tempDeck, ...tempDeck];
   shuffle(gameDeck);
 }
 
@@ -161,23 +169,23 @@ function setDeckSize(dif){
 function createCards(cardsArr) {
   for (let card of cardsArr) {
     // create a new card
-    const newDiv = document.createElement("div");
-    const newInner = document.createElement("div");
-    const newFront = document.createElement("div");
-    const newBack = document.createElement("div");
-    
-    newDiv.classList.add('card');
-    newDiv.classList.add(card)
-    newInner.classList.add('card-inner')
-    newFront.classList.add('card-side', 'card-side__front')
-    newBack.classList.add('card-side', 'card-side__back')
-    newBack.style.backgroundImage = `url('img/${card}.jpg')`
+    const newDiv = document.createElement('div');
+    const newInner = document.createElement('div');
+    const newFront = document.createElement('div');
+    const newBack = document.createElement('div');
 
-    newDiv.append(newInner)
-    newInner.append(newFront)
-    newInner.append(newBack)
+    newDiv.classList.add('card');
+    newDiv.classList.add(card);
+    newInner.classList.add('card-inner');
+    newFront.classList.add('card-side', 'card-side__front');
+    newBack.classList.add('card-side', 'card-side__back');
+    newBack.style.backgroundImage = `url('img/${card}.jpg')`;
+
+    newDiv.append(newInner);
+    newInner.append(newFront);
+    newInner.append(newBack);
     // call a function handleCardClick when a div is clicked on
-    newDiv.addEventListener("click", handleCardClick);
+    newDiv.addEventListener('click', handleCardClick);
 
     // append the div to the element with an id of game
     gameContainer.append(newDiv);
@@ -185,118 +193,128 @@ function createCards(cardsArr) {
 
   // add background-image to cards
 
-
   // add scoreboard div to game board
-  const scoreDiv = document.createElement('div')
-  scoreDiv.classList.add('score')
-  const scoreP = document.createElement('p')
-  displayScore(scoreP)
-  scoreDiv.append(scoreP)
-  gameContainer.append(scoreDiv)
+  const scoreDiv = document.createElement('div');
+  scoreDiv.classList.add('score');
+  const scoreP = document.createElement('p');
+  displayScore(scoreP);
+  scoreDiv.append(scoreP);
+  gameContainer.append(scoreDiv);
 }
 
 // TODO: Implement this function!
 function handleCardClick(e) {
-  e.preventDefault()
-  scoreboard = document.querySelector('.score p')
+  e.preventDefault();
+  scoreboard = document.querySelector('.score p');
   // Make sure "checking" is false, and disable clicking a flipped card.
-  if(checking){return};
-  if(e.target.parentElement.parentElement === card1 || e.target === card2){return};
-  if(e.target.parentElement.parentElement.classList.contains('matched')){return};
+  if (checking) {
+    return;
+  }
+  if (e.target.parentElement.parentElement === card1 || e.target === card2) {
+    return;
+  }
+  if (e.target.parentElement.parentElement.classList.contains('matched')) {
+    return;
+  }
 
   checking = true;
-  
+
   // set card1 and card2 values
-  if(!card1 || !card2){
+  if (!card1 || !card2) {
     card2 = card1 ? card1 : null;
     card1 = e.target.parentElement.parentElement;
     cardBack2 = cardBack1 ? cardBack1 : null;
     cardBack1 = e.target.parentElement.lastChild;
-    card1.classList.add('flip');  
+    card1.classList.add('flip');
   }
   // do not continue unless card1 and card2 have values
-  console.log(card1)
-  if(!card2){return checking = false}
-  
+  console.log(card1);
+  if (!card2) {
+    return (checking = false);
+  }
+
   // check if cards match
-  if(cardBack1.style.backgroundImage === cardBack2.style.backgroundImage){
+  if (cardBack1.style.backgroundImage === cardBack2.style.backgroundImage) {
     matches++;
-    card1.classList.add('matched')
-    card2.classList.add('matched')
-    card1 = card2 = null; 
+    card1.classList.add('matched');
+    card2.classList.add('matched');
+    card1 = card2 = null;
     checking = false;
   } else {
     // iterate score and reset selected cards
     score++;
-    setTimeout(function() {
+    setTimeout(function () {
       card1.classList.remove('flip');
       card2.classList.remove('flip');
-      card1 = card2 = null; 
+      card1 = card2 = null;
       checking = false;
-    },1000)
-
+    }, 1000);
   }
 
   displayScore(scoreboard);
 
   // win logic
-  if(matches === gameDeck.length/2){
+  if (matches === gameDeck.length / 2) {
     storeHiScore();
-    displayScore(modalScore)
-    setTimeout(function(){
-      scoreboard.innerHTML = ''
-      modal.classList.remove('hidden')
-    },100)
-    
+    displayScore(modalScore);
+    setTimeout(function () {
+      scoreboard.innerHTML = '';
+      modal.classList.remove('hidden');
+    }, 100);
   }
 }
 
-const modalBTN = document.querySelector('.modal button')
-modalBTN.addEventListener('click',function(){
-  resetGame()
-})
+const modalBTN = document.querySelector('.modal button');
+modalBTN.addEventListener('click', function () {
+  resetGame();
+});
 
-
-function resetGame(){
+function resetGame() {
   score = 0;
   matches = 0;
   game.innerHTML = '';
   gameDeck = [];
-  headerMsg.textContent = "An Alter Bridge Memory Game"
-  modal.classList.add('hidden')
-  main.classList.add('hidden','fadedOut')
-  header.classList.remove('hidden')
-  header.classList.remove('playing')
-  btnStart.classList.remove('hidden')
-  difficultyMenu.classList.add('hidden')
+  headerMsg.textContent = 'An Alter Bridge Memory Game';
+  modal.classList.add('hidden');
+  main.classList.add('hidden', 'fadedOut');
+  header.classList.remove('hidden');
+  header.classList.remove('playing');
+  btnStart.classList.remove('hidden');
+  difficultyMenu.classList.add('hidden');
 }
-
 
 // rework this to allow for best scores at all 3 difficulties
-function storeHiScore(){
-  
-  if(!best.easy || best.easy > score){ 
-    difficulty === 'easy' && localStorage.setItem(`memoryMatchGameBestEasy`, score) 
-  } 
-  if(!best.norm || best.norm > score){ 
-    difficulty === 'norm' && localStorage.setItem(`memoryMatchGameBestNorm`, score) 
-  } 
-  if(!best.hard || best.hard > score){ 
-    difficulty === 'hard' && localStorage.setItem(`memoryMatchGameBestHard`, score) 
-  } 
+function storeHiScore() {
+  if (!best.easy || best.easy > score) {
+    difficulty === 'easy' &&
+      localStorage.setItem(`memoryMatchGameBestEasy`, score);
+  }
+  if (!best.norm || best.norm > score) {
+    difficulty === 'norm' &&
+      localStorage.setItem(`memoryMatchGameBestNorm`, score);
+  }
+  if (!best.hard || best.hard > score) {
+    difficulty === 'hard' &&
+      localStorage.setItem(`memoryMatchGameBestHard`, score);
+  }
 }
 
-function displayScore(el){ 
-
+function displayScore(el) {
   best.getBest();
 
-  if(difficulty === 'easy'){
-    el .innerHTML = best.easy ? `Score: ${score} <br> Best: ${best.easy}` : `Score: ${score}` 
+  if (difficulty === 'easy') {
+    el.innerHTML = best.easy
+      ? `Score: ${score} <br> Best: ${best.easy}`
+      : `Score: ${score}`;
   }
-  if(difficulty === 'norm'){
-    el .innerHTML = best.norm ? `Score: ${score} <br> Best: ${best.norm}` : `Score: ${score}` 
+  if (difficulty === 'norm') {
+    el.innerHTML = best.norm
+      ? `Score: ${score} <br> Best: ${best.norm}`
+      : `Score: ${score}`;
   }
-  if(difficulty === 'hard'){
-    el .innerHTML = best.hard ? `Score: ${score} <br> Best: ${best.hard}` : `Score: ${score}` 
+  if (difficulty === 'hard') {
+    el.innerHTML = best.hard
+      ? `Score: ${score} <br> Best: ${best.hard}`
+      : `Score: ${score}`;
   }
 }
