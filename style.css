@@ -1,21 +1,20 @@
 :root {
-  --cardpic1: url('img/ab-logo.png')
+  --cardpic1: url('img/ab-logo.png');
 }
 
 *,
 *::before,
-*::after{
-  margin:0;
+*::after {
+  margin: 0;
   box-sizing: border-box;
 }
 
-
-
-body{
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
   text-align: center;
-  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(img/background.jpeg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(img/background.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -24,12 +23,12 @@ body{
   overflow: hidden;
 }
 header,
-main{
+main {
   display: flex;
   height: 100vh;
 }
 
-header{
+header {
   background-color: #fff;
   flex-direction: column;
   align-items: center;
@@ -40,11 +39,11 @@ header{
   padding-top: 9vh;
 }
 
-header.playing{
+header.playing {
   margin-top: -100vh;
 }
 
-main{
+main {
   padding: 5%;
   padding-bottom: 16vh;
   transition: opacity 0.7s linear;
@@ -52,28 +51,29 @@ main{
   align-items: center;
 }
 
-main.fadedOut{
+main.fadedOut {
   opacity: 0;
 }
 
-.modal{
+.modal {
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 3rem;
-  background-color: rgba(0,0,0,0.75);
+  background-color: rgba(0, 0, 0, 0.75);
   color: #fff;
   padding-bottom: 5rem;
   z-index: 200;
 }
 
-h1,h2{
+h1,
+h2 {
   font-size: 4rem;
   line-height: 1;
   text-transform: uppercase;
@@ -82,57 +82,59 @@ h1,h2{
   font-style: normal;
 }
 
-p{
-  font-size:1.2rem;
+p {
+  font-size: 1.2rem;
 }
 
 .btn__start,
-.difficulty{
+.difficulty {
   margin-top: 1.4rem;
 }
 
-.btn{
+.btn {
   font-family: brother-1816-printed, sans-serif;
-  border:none;
+  border: none;
   background-color: #333;
   color: #fff;
   font-size: 1.2rem;
   font-weight: 900;
   border-radius: 16px;
   padding: 1.2rem 2.4rem;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-  transition: all .2s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
   text-transform: uppercase;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: #555;
-  box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-  transform:translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
-.btn__again{
+.btn__again {
   background-color: #999;
 }
 
-.btn__again:hover{
+.btn__again:hover {
   background-color: #777;
 }
 
-.difficulty{
+.difficulty {
   display: flex;
   flex-direction: column;
-  gap: .8rem;
+  gap: 0.8rem;
 }
 
-.btn__difficulty{
-  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(img/background.jpeg);
+.btn__difficulty {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(img/background.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.btn__difficulty:hover{
-  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(img/background.jpeg);
+.btn__difficulty:hover {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(img/background.jpeg);
 }
 
 .card {
@@ -142,21 +144,23 @@ p{
 }
 
 .card-inner {
-  border: 4px solid #fff; 
+  border: 4px solid #fff;
   border-radius: 12px;
   position: relative;
+  background-color: #fff;
   width: 100%;
   height: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 1s;
-  transform-style: preserve-3d; 
+  transform-style: preserve-3d;
 }
 
 .card.flip .card-inner {
-  transform: rotateY(-180deg); 
+  transform: rotateY(-180deg);
 }
 
-.card-side__front, .card-side__back {
+.card-side__front,
+.card-side__back {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -165,11 +169,10 @@ p{
 }
 
 .card-side__front {
-  background-color: #fff;
   background-image: url(img/ab-logo.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size:contain;  
+  background-size: contain;
 }
 
 .card-side__back {
@@ -180,54 +183,53 @@ p{
   border-radius: 12px;
 }
 
-.game{
+.game {
   display: grid;
-  gap: .6rem;
+  gap: 0.6rem;
   width: 100%;
   height: 70vh;
 }
 
-.game.easy{
-  grid-template-areas:  
-  'g1 g2 g3'
-  'g4 sc g5'
-  'g6 sc g7' 
-  'g8 g9 g10';
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(4,1fr);
+.game.easy {
+  grid-template-areas:
+    'g1 g2 g3'
+    'g4 sc g5'
+    'g6 sc g7'
+    'g8 g9 g10';
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 }
 
-.game.norm{
-  grid-template-areas:  
-  'g1 g2 g3 g4'
-  'g5 g6 g7 g8'
-  'g9 sc sc g10'
-  'g11 sc sc g12'
-  'g13 g14 g15 g16'
-  'g17 g18 g19 g20';
-  grid-template-columns: repeat(4,1fr);
-  grid-template-rows: repeat(6,1fr);  
+.game.norm {
+  grid-template-areas:
+    'g1 g2 g3 g4'
+    'g5 g6 g7 g8'
+    'g9 sc sc g10'
+    'g11 sc sc g12'
+    'g13 g14 g15 g16'
+    'g17 g18 g19 g20';
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
 }
 
-
-.game.hard{
-  grid-template-areas: 
-  'g1 g2 g3 g4 g5'
-  'g6 g7 g8 g9 g10'
-  'g11 g12 g13 g14 g15'
-  'g16 g17 g18 g19 g20'
-  'g21 g22 g23 g24 g25'
-  'g26 g27 g28 g29 g30'
-  'g31 g32 g33 g34 g35'
-  'g36 g37 g38 g39 g40'
-  'sc sc sc sc sc';
-  gap: .4rem;
-  grid-template-columns: repeat(5,1fr);
-  grid-template-rows: repeat(9,1fr);  
+.game.hard {
+  grid-template-areas:
+    'g1 g2 g3 g4 g5'
+    'g6 g7 g8 g9 g10'
+    'g11 g12 g13 g14 g15'
+    'g16 g17 g18 g19 g20'
+    'g21 g22 g23 g24 g25'
+    'g26 g27 g28 g29 g30'
+    'g31 g32 g33 g34 g35'
+    'g36 g37 g38 g39 g40'
+    'sc sc sc sc sc';
+  gap: 0.4rem;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(9, 1fr);
 }
 
 /* lg screen */
-.game.hard > .card .card-inner{
+.game.hard > .card .card-inner {
   border-width: 3px;
 }
 
@@ -242,32 +244,33 @@ p{
   box-shadow: none;
 }
 
-.hidden{
-  display:none;
+.hidden {
+  display: none;
 }
 
 /* /////////////////////////////////////////////////////// */
 /* MEDIA QUERIES - Small Tablets*/
 /* /////////////////////////////////////////////////////// */
-@media screen and (min-width: 600px){
-  
-  h1,h2{
+@media screen and (min-width: 600px) {
+  h1,
+  h2 {
     font-size: 5rem;
   }
 
-  p{
+  p {
     font-size: 2rem;
   }
 
-  header{
-    gap:2rem;
+  header {
+    gap: 2rem;
   }
-  
-  .btn__start,.difficulty{
+
+  .btn__start,
+  .difficulty {
     margin-top: 3rem;
   }
 
-  .btn{
+  .btn {
     padding: 1.6rem 3.2rem;
     font-size: 1.4rem;
   }
@@ -276,100 +279,99 @@ p{
 /* /////////////////////////////////////////////////////// */
 /* MEDIA QUERIES - Large Tablets*/
 /* /////////////////////////////////////////////////////// */
-@media screen and (min-width: 768px){
-  html{
+@media screen and (min-width: 768px) {
+  html {
     /* font-size: 12px; */
   }
 }
 
-
 /* /////////////////////////////////////////////////////// */
 /* MEDIA QUERIES - Large Tablets*/
 /* /////////////////////////////////////////////////////// */
-@media screen and (min-width: 1000px){
- 
-  html{
+@media screen and (min-width: 1000px) {
+  html {
     font-size: 10px;
   }
- 
-  h1,h2{
+
+  h1,
+  h2 {
     font-size: 7rem;
   }
-  
-  p{
+
+  p {
     font-size: 2.3rem;
   }
- 
-  .btn{
+
+  .btn {
     padding: 1.6rem 3.2rem;
     font-size: 2rem;
   }
-  
-  .difficulty{
+
+  .difficulty {
     flex-direction: row;
   }
-  
-  .btn__start,.difficulty{
+
+  .btn__start,
+  .difficulty {
     margin-top: 3rem;
   }
 
-  main{
+  main {
     padding-top: 8vh;
     justify-content: center;
   }
 
-  .game{
+  .game {
     height: 80vh;
     width: 70%;
   }
 
-  .game.easy{
-    grid-template-areas:  
-    'g1 g2 g3 g4'
-    'g5 sc sc g6'
-    'g7 g8 g9 g10';
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: repeat(3,1fr);
+  .game.easy {
+    grid-template-areas:
+      'g1 g2 g3 g4'
+      'g5 sc sc g6'
+      'g7 g8 g9 g10';
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
   }
 
-  .game.norm{
-    grid-template-areas:  
-    'g1 g2 g3 g4 g5 g6'
-    'g7 g8 sc sc g9 g10'
-    'g11 g12 sc sc g13 g14 '
-    'g15 g16 g17 g18 g19 g20';
-    grid-template-columns: repeat(6,1fr);
-    grid-template-rows: repeat(4,1fr);
+  .game.norm {
+    grid-template-areas:
+      'g1 g2 g3 g4 g5 g6'
+      'g7 g8 sc sc g9 g10'
+      'g11 g12 sc sc g13 g14 '
+      'g15 g16 g17 g18 g19 g20';
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
   }
-    
-  .game.hard{
-    grid-template-areas: 
+
+  .game.hard {
+    grid-template-areas:
       'g1 g2 g3 g4 g5 g6 g7 g8'
       'g9 g10 g11 g12 g13 g14 g15 g16'
       'g17 g18 sc sc sc sc g19 g20'
       'g21 g22 sc sc sc sc g23 g24'
       'g25 g26 g27 g28 g29 g30 g31 g32'
       'g33 g34 g35 g36 g37 g38 g39 g40';
-    grid-template-columns: repeat(8,1fr);
-    grid-template-rows: repeat(6,1fr);
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     gap: 1rem;
   }
-
 }
 
 /* /////////////////////////////////////////////////////// */
 /* MEDIA QUERIES - Lg Desktop*/
 /* /////////////////////////////////////////////////////// */
-@media screen and (min-width: 1200px){
-  html{
+@media screen and (min-width: 1200px) {
+  html {
     font-size: 12px;
   }
 
-  header{
+  header {
     padding-top: 20vh;
   }
 
-  .game{
+  .game {
     width: 70%;
     gap: 1rem;
   }
@@ -378,12 +380,12 @@ p{
 /* /////////////////////////////////////////////////////// */
 /* MEDIA QUERIES - Lg Desktop*/
 /* /////////////////////////////////////////////////////// */
-@media screen and (min-width: 1400px){
-  html{
+@media screen and (min-width: 1400px) {
+  html {
     font-size: 14px;
   }
-  .game{
+  .game {
     height: 80vh;
-    padding-top:3rem;
+    padding-top: 3rem;
   }
 }
