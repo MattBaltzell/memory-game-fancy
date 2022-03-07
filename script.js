@@ -13,6 +13,7 @@ const btnHard = document.querySelector('.difficulty__hard');
 const h1 = document.querySelector('h1');
 const headerMsg = document.querySelector('header p');
 const game = document.querySelector('#game');
+const modalBTN = document.querySelector('.modal button');
 const best = {
   easy: localStorage.getItem('memoryMatchGameBestEasy'),
   norm: localStorage.getItem('memoryMatchGameBestNorm'),
@@ -78,10 +79,9 @@ const BANDPICS = [
 ];
 
 btnStart.addEventListener('click', showDifficultyMenu);
-
 difficultyMenu.addEventListener('click', startGameHandler.bind(this));
-
 gameContainer.addEventListener('click', handleCardClick);
+modalBTN.addEventListener('click', resetGame);
 
 function showDifficultyMenu() {
   headerMsg.textContent = 'Select a difficulty!';
@@ -92,24 +92,18 @@ function showDifficultyMenu() {
 // Function to select difficulty, start game
 function startGameHandler(e) {
   e.preventDefault();
+
   if (!e.target.classList.contains('btn__difficulty')) return;
-  if (e.target.classList.contains('btn__difficulty--easy')) {
-    difficulty = 'easy';
-  }
-  if (e.target.classList.contains('btn__difficulty--norm')) {
-    difficulty = 'norm';
-  }
-  if (e.target.classList.contains('btn__difficulty--hard')) {
-    difficulty = 'hard';
-  }
+  difficulty = e.target.dataset.difficulty;
+
   setDifficulty(difficulty);
-  setDeckSize(difficulty);
-  createCards(gameDeck);
-  revealGame();
+  createDeck(difficulty);
+  createGameBoard(gameDeck);
+  revealGameBoard();
 }
 
 // Function to hide start menu and show the game
-function revealGame() {
+function revealGameBoard() {
   header.classList.add('playing');
   setTimeout(function () {
     main.classList.remove('hidden');
@@ -125,7 +119,7 @@ function setDifficulty(dif) {
   gameContainer.classList.add(dif);
 }
 
-// here is a helper function to shuffle an array
+// helper function to shuffle an array
 // it returns the same array with values shuffled
 // it is based on an algorithm called Fisher Yates if you want ot research more
 function shuffle(array) {
@@ -148,18 +142,15 @@ function shuffle(array) {
   return array;
 }
 
-function setDeckSize(dif) {
+function createDeck(dif) {
   let shuffledCards = shuffle(BANDPICS);
+  let numCards;
 
-  if (dif === 'easy') {
-    tempDeck = shuffledCards.slice(-5);
-  }
-  if (dif === 'norm') {
-    tempDeck = shuffledCards.slice(-10);
-  }
-  if (dif === 'hard') {
-    tempDeck = shuffledCards.slice(-20);
-  }
+  if (dif === 'easy') numCards = 5;
+  if (dif === 'norm') numCards = 10;
+  if (dif === 'hard') numCards = 20;
+
+  tempDeck = shuffledCards.slice(-numCards);
   gameDeck = [...tempDeck, ...tempDeck];
   shuffle(gameDeck);
 }
@@ -167,7 +158,7 @@ function setDeckSize(dif) {
 // this function loops over the array of band pics
 // it creates a new div and gives it a class with the value of the color
 // it also adds an event listener for a click for each card
-function createCards(cardsArr) {
+function createGameBoard(cardsArr) {
   for (let card of cardsArr) {
     // create a new card
     const cardDiv = document.createElement('div');
@@ -189,9 +180,10 @@ function createCards(cardsArr) {
     gameContainer.append(cardDiv);
   }
 
-  // add background-image to cards
+  addScoreboardToGame();
+}
 
-  // add scoreboard div to game board
+function addScoreboardToGame() {
   const scoreDiv = document.createElement('div');
   scoreDiv.classList.add('score');
   const scoreP = document.createElement('p');
@@ -203,24 +195,29 @@ function createCards(cardsArr) {
 // TODO: Implement this function!
 function handleCardClick(e) {
   e.preventDefault();
+  const target = e.target.parentElement.parentElement;
 
-  if (!e.target.parentElement.parentElement.classList.contains('card')) return;
+  if (!target.classList.contains('card')) return;
 
   scoreboard = document.querySelector('.score p');
+
   // Make sure "checking" is false, and disable clicking a flipped card.
-  if (checking) {
-    return;
-  }
-  if (e.target.parentElement.parentElement === card1 || e.target === card2) {
-    return;
-  }
-  if (e.target.parentElement.parentElement.classList.contains('matched')) {
-    return;
-  }
+  if (checking) return;
+  if (target === card1 || target === card2) return;
+  if (target.classList.contains('matched')) return;
 
   checking = true;
+  setCardValues(e);
 
-  // set card1 and card2 values
+  // do not continue unless card1 and card2 have values
+  if (!card2) return (checking = false);
+
+  checkForCardMatch();
+  displayScore(scoreboard);
+  checkForWin();
+}
+
+function setCardValues(e) {
   if (!card1 || !card2) {
     card2 = card1 ? card1 : null;
     card1 = e.target.parentElement.parentElement;
@@ -228,13 +225,9 @@ function handleCardClick(e) {
     cardBack1 = e.target.parentElement.lastChild;
     card1.classList.add('flip');
   }
-  // do not continue unless card1 and card2 have values
-  console.log(card1);
-  if (!card2) {
-    return (checking = false);
-  }
+}
 
-  // check if cards match
+function checkForCardMatch() {
   if (cardBack1.style.backgroundImage === cardBack2.style.backgroundImage) {
     matches++;
     card1.classList.add('matched');
@@ -251,10 +244,9 @@ function handleCardClick(e) {
       checking = false;
     }, 1000);
   }
+}
 
-  displayScore(scoreboard);
-
-  // win logic
+function checkForWin() {
   if (matches === gameDeck.length / 2) {
     storeHiScore();
     displayScore(modalScore);
@@ -264,11 +256,6 @@ function handleCardClick(e) {
     }, 100);
   }
 }
-
-const modalBTN = document.querySelector('.modal button');
-modalBTN.addEventListener('click', function () {
-  resetGame();
-});
 
 function resetGame() {
   score = 0;
@@ -284,38 +271,18 @@ function resetGame() {
   difficultyMenu.classList.add('hidden');
 }
 
-// rework this to allow for best scores at all 3 difficulties
 function storeHiScore() {
-  if (!best.easy || best.easy > score) {
-    difficulty === 'easy' &&
-      localStorage.setItem(`memoryMatchGameBestEasy`, score);
-  }
-  if (!best.norm || best.norm > score) {
-    difficulty === 'norm' &&
-      localStorage.setItem(`memoryMatchGameBestNorm`, score);
-  }
-  if (!best.hard || best.hard > score) {
-    difficulty === 'hard' &&
-      localStorage.setItem(`memoryMatchGameBestHard`, score);
+  if (!best[difficulty] || best[difficulty] > score) {
+    localStorage.setItem(
+      `memoryMatchGameBest${difficulty[0].toUpperCase() + difficulty.slice(1)}`,
+      score
+    );
   }
 }
 
 function displayScore(el) {
   best.getBest();
-
-  if (difficulty === 'easy') {
-    el.innerHTML = best.easy
-      ? `Score: ${score} <br> Best: ${best.easy}`
-      : `Score: ${score}`;
-  }
-  if (difficulty === 'norm') {
-    el.innerHTML = best.norm
-      ? `Score: ${score} <br> Best: ${best.norm}`
-      : `Score: ${score}`;
-  }
-  if (difficulty === 'hard') {
-    el.innerHTML = best.hard
-      ? `Score: ${score} <br> Best: ${best.hard}`
-      : `Score: ${score}`;
-  }
+  el.innerHTML = best[difficulty]
+    ? `Score: ${score} <br> Best: ${best[difficulty]}`
+    : `Score: ${score}`;
 }
