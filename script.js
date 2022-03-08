@@ -25,17 +25,11 @@ const best = {
   },
 };
 
-let scoreboard;
 let matches = 0;
-let card1;
-let card2;
-let cardBack1;
-let cardBack2;
-let difficulty;
 let score = 0;
 let checking = false;
-let tempDeck;
 let gameDeck = [];
+let scoreboard, card1, card2, cardBack1, cardBack2, difficulty, tempDeck;
 
 const BANDPICS = [
   'cardpic01',
@@ -265,8 +259,7 @@ function resetGame() {
   headerMsg.textContent = 'An Alter Bridge Memory Game';
   modal.classList.add('hidden');
   main.classList.add('hidden', 'fadedOut');
-  header.classList.remove('hidden');
-  header.classList.remove('playing');
+  header.classList.remove('hidden', 'playing');
   btnStart.classList.remove('hidden');
   difficultyMenu.classList.add('hidden');
 }
